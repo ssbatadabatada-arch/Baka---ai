@@ -9,18 +9,17 @@ import time
 token = "8629565949:AAH-3Q4K0Hl8LsViFqMt0xbsHeThGnCCUCM"
 bot = telebot.TeleBot(token)
 
-# Gemini AI Key aya nakho (Google AI Studio mathi malse)
-genai.configure(api_key="AIzaSyBXds0p_JEDrBImu1nfA_04Nx...")")
+# Gemini AI Key (Fix kiya gaya bracket)
+genai.configure(api_key="AIzaSyBXds0p_JEDrBImu1nfA_04Nx_8mF-368I")
 model = genai.GenerativeModel('gemini-pro')
 
-# *** AYA TAMARI TELEGRAM ID NAKHO *** (e.g., 12345678)
-# Tame unlimited coins mate
+# Creator ID (Aapki ID)
 CREATOR_ID = 6956842036
 
 # Game Data
 users_data = {}
 users_health = {}
-CREATOR_COINS = 999999999999 # Unlimited for you!
+CREATOR_COINS = 999999999999 # Aapke liye unlimited!
 
 # --- HELPERS ---
 def get_balance(uid):
@@ -29,10 +28,6 @@ def get_balance(uid):
 
 def set_balance(uid, amount):
     if uid != CREATOR_ID: users_data[uid] = amount
-
-def get_health(uid): return users_health.get(uid, 100)
-
-def set_health(uid, hp): users_health[uid] = max(0, min(100, hp))
 
 def get_name(user):
     if not user: return "Unknown"
@@ -45,18 +40,18 @@ def get_name(user):
 def start(message):
     user_name = get_name(message.from_user)
     welcome_msg = (
-        f"Kem cho {user_name}! Hu tamaro AI dost, 'Baka'! 🤖\n\n"
+        f"Kaise ho {user_name}! Main hoon tumhara AI dost, 'Baka'! 🤖\n\n"
         "**Features:**\n\n"
         "💰 **Economy:**\n"
-        "/work - Paisa kamavo (work kari ne)\n"
-        "/rob - Chori karo (group na user mathi)\n"
-        "/kill - Bija ne maren emna badha paisa lo (Risk hoy!)\n"
-        "/balance - Check karo\n\n"
+        "/work - Paise kamao (kaam karke)\n"
+        "/rob - Chori karo (group ke kisi member se)\n"
+        "/kill - Dusre ko maaro aur uske paise lo (Risk hai!)\n"
+        "/balance - Paise check karo\n\n"
         "🎭 **Fun:**\n"
-        "/slap - Koik ne thappad maro\n"
-        "/kiss - Koik ne chumban dyo\n"
-        "/hug - Koik ne hug karo\n\n"
-        "Mari sathe sacha dosti jem vaat karo! 🥳"
+        "/slap - Kisi ko thappad maaro\n"
+        "/kiss - Kisi ko pappi do\n"
+        "/hug - Kisi ko gale lagao\n\n"
+        "Mujhse ek scche dost ki tarah Hindi mein baat karo! 🥳"
     )
     bot.reply_to(message, welcome_msg)
 
@@ -67,28 +62,28 @@ def work(message):
     current_bal = get_balance(uid)
     new_bal = current_bal + earn
     set_balance(uid, new_bal)
-    bot.reply_to(message, f"💸 Tame majuri kari ne {earn} coins kamaya! \nHave tamari pase: {get_balance(uid)}")
+    bot.reply_to(message, f"💸 Tumne mehnat karke {earn} coins kamaye! \nAb tumhare paas: {get_balance(uid)} coins hain.")
 
 @bot.message_handler(commands=['balance'])
 def balance(message):
     uid = message.from_user.id
     bal = get_balance(uid)
-    bot.reply_to(message, f"💰 Tamara khata ma {bal} coins chhe.")
+    bot.reply_to(message, f"💰 Tumhare khate mein {bal} coins hain.")
 
 @bot.message_handler(commands=['rob'])
 def rob(message):
     if not message.reply_to_message:
-        return bot.reply_to(message, "⚠️ Baka! Koina text par reply kari ne /rob use karo.")
+        return bot.reply_to(message, "⚠️ Baka! Kisi ke message par reply karke /rob use karo.")
     
     uid = message.from_user.id
     victim_id = message.reply_to_message.from_user.id
     
-    if uid == victim_id: return bot.reply_to(message, "Aa su! Potane rob na karay baka!")
+    if uid == victim_id: return bot.reply_to(message, "Ye kya! Apne aap ko thodi lootoge baka!")
 
     current_bal = get_balance(uid)
     victim_bal = get_balance(victim_id)
 
-    if victim_bal < 10: return bot.reply_to(message, "Gareeb pase thi chori na karay!")
+    if victim_bal < 10: return bot.reply_to(message, "Gareeb ki chori nahi karte!")
 
     success = random.choice([True, False])
     if success:
@@ -96,80 +91,79 @@ def rob(message):
         steal_amt = int(victim_bal * (steal_pct / 100))
         set_balance(uid, current_bal + steal_amt)
         set_balance(victim_id, victim_bal - steal_amt)
-        bot.reply_to(message, f"🎉 *Suuper*! Tame chori ma jitya ane {steal_amt} coins luti lidha!")
+        bot.reply_to(message, f"🎉 *Super*! Tumne chori kar li aur {steal_amt} coins loot liye!")
     else:
         loss_pct = random.randint(10, 20)
         loss_amt = int(current_bal * (loss_pct / 100))
         set_balance(uid, max(0, current_bal - loss_amt))
-        bot.reply_to(message, f"😿 *Bad Luck*! Tame paka thaya ane reverse ma {loss_amt} coins haraai dyo.")
+        bot.reply_to(message, f"😿 *Bad Luck*! Tum pakde gaye aur jurmane mein {loss_amt} coins gawa diye.")
 
 @bot.message_handler(commands=['kill'])
 def kill(message):
     if not message.reply_to_message:
-        return bot.reply_to(message, "⚠️ Baka! Koina text par reply kari ne /kill use karo.")
+        return bot.reply_to(message, "⚠️ Baka! Kisi ke message par reply karke /kill use karo.")
     
     uid = message.from_user.id
     victim_id = message.reply_to_message.from_user.id
     
-    if uid == victim_id: return bot.reply_to(message, "Aa su! Potane marna na hoy!")
+    if uid == victim_id: return bot.reply_to(message, "Khud ko kyu maar rahe ho baka!")
 
     current_bal = get_balance(uid)
     victim_bal = get_balance(victim_id)
 
-    # 10% chance to kill successfully
-    success = (random.randint(1, 10) == 1)
+    success = (random.randint(1, 10) == 1) # 10% Chance
 
     if success:
         total_coins = victim_bal
         set_balance(uid, current_bal + total_coins)
         set_balance(victim_id, 0)
-        bot.reply_to(message, f"💀 **BOOM!** Tame tene mari nakhyu ane emna badha {total_coins} coins luti lidha!")
+        bot.reply_to(message, f"💀 **Khatam!** Tumne use dher kar diya aur uske saare {total_coins} coins loot liye!")
     else:
-        # Reverse Kill Risk
         my_loss = current_bal
         set_balance(uid, 0)
-        bot.reply_to(message, f"🩸 *Risk*! Tame mare gaya ane reverse ma tamara badha {my_loss} coins haraai dyo.")
+        bot.reply_to(message, f"🩸 *Oh no!* Tum khud maare gaye aur apne saare {my_loss} coins gawa diye.")
 
 # --- FUN COMMANDS ---
 @bot.message_handler(commands=['slap'])
 def slap(message):
-    if not message.reply_to_message: return bot.reply_to(message, "Koik ne slap marva reply karo.")
+    if not message.reply_to_message: return bot.reply_to(message, "Kisi ko thappad maarne ke liye reply karein.")
     user = get_name(message.from_user)
     victim = get_name(message.reply_to_message.from_user)
-    bot.reply_to(message, f"👋 {user} e {victim} ne zor thi *THAPPAD* mari!")
+    bot.reply_to(message, f"👋 {user} ne {victim} ko ek zor daar *THAPPAD* maara!")
 
 @bot.message_handler(commands=['kiss'])
 def kiss(message):
-    if not message.reply_to_message: return bot.reply_to(message, "Koik ne chumban dyava reply karo.")
+    if not message.reply_to_message: return bot.reply_to(message, "Pappi dene ke liye reply karein.")
     user = get_name(message.from_user)
     victim = get_name(message.reply_to_message.from_user)
-    bot.reply_to(message, f"💋 {user} e {victim} ne ek pyari jivi *CHUMBAN* didhi!")
+    bot.reply_to(message, f"💋 {user} ne {victim} ko ek pyaari si *Pappi* di!")
 
 @bot.message_handler(commands=['hug'])
 def hug(message):
-    if not message.reply_to_message: return bot.reply_to(message, "Koik ne 'hug' karva reply karo.")
+    if not message.reply_to_message: return bot.reply_to(message, "Gale lagne ke liye reply karein.")
     user = get_name(message.from_user)
     victim = get_name(message.reply_to_message.from_user)
-    bot.reply_to(message, f"🤗 {user} e {victim} ne ek zor thi *HUG* kari!")
+    bot.reply_to(message, f"🤗 {user} ne {victim} ko zor se *HUG* kiya!")
 
-# --- AI CHAT LOGIC (Always last) ---
+# --- AI CHAT LOGIC (Hindi) ---
 @bot.message_handler(func=lambda message: True)
 def chat(message):
     try:
-        # AI Instructions: Fun, Gujarati-Hindi mix
-        prompt = f"You are Baka AI. Talk like a close friend in a mix of Gujarati and Hindi. Be cool and funny. User said: {message.text}"
+        # AI Instructions in Hindi
+        prompt = f"Tum Baka AI ho. Ek mazedaar dost ki tarah Hindi mein baat karo. User ne kaha: {message.text}"
         response = model.generate_content(prompt)
         bot.reply_to(message, response.text)
     except:
-        bot.reply_to(message, "Baka, brain thodu thaki gayu chhe, pachhi vaat kariye?")
+        bot.reply_to(message, "Baka, dimaag thoda thak gaya hai, baad mein baat karein?")
 
 # --- RENDER SERVER ---
 app = Flask('')
 @app.route('/')
-def home(): return "Baka AI Game Bot is Live!"
+def home(): return "Baka AI Bot is Online!"
 
 def run(): app.run(host='0.0.0.0', port=8080)
 threading.Thread(target=run).start()
 
 bot.polling()
+
     
