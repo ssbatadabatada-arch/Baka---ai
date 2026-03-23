@@ -15,7 +15,7 @@ model = genai.GenerativeModel('gemini-pro')
 
 # *** AYA TAMARI TELEGRAM ID NAKHO *** (e.g., 12345678)
 # Tame unlimited coins mate
-CREATOR_ID = 1198642031 
+CREATOR_ID = 6956842036
 
 # Game Data
 users_data = {}
