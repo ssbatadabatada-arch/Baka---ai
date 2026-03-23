@@ -146,7 +146,8 @@ def hug(message):
     bot.reply_to(message, f"🤗 {user} ne {victim} ko zor se *HUG* kiya!")
 
 # --- AI CHAT LOGIC (Hindi) ---
-@bot.message_handler(func=lambda message: True)
+@bot.message_handler(func=lambda message: True, content_types=['text'])
+
 def chat(message):
     try:
         # AI Instructions in Hindi
