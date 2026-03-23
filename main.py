@@ -10,7 +10,7 @@ token = "8629565949:AAH-3Q4K0Hl8LsViFqMt0xbsHeThGnCCUCM"
 bot = telebot.TeleBot(token)
 
 # Gemini AI Key aya nakho (Google AI Studio mathi malse)
-genai.configure(api_key="TAMARI_GEMINI_API_KEY_AYA_NAKHO")
+genai.configure(api_key="AIzaSyBXds0p_JEDrBImu1nfA_04Nx...")")
 model = genai.GenerativeModel('gemini-pro')
 
 # *** AYA TAMARI TELEGRAM ID NAKHO *** (e.g., 12345678)
