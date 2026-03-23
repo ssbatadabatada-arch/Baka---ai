@@ -9,7 +9,7 @@ import threading
 bot = telebot.TeleBot("8629565949:AAH-3Q4K0Hl8LsViFqMt0xbsHeThGnCCUCM")
 
 # !!! AYA TAMARI GEMINI API KEY NAKHO !!!
-genai.configure(api_key="TAME_MELVELI_GEMINI_KEY_AYA_PASTE_KARO")
+genai.configure(api_key="AIzaSyBXds0p_JEDrBImu1nfA_04Nx4I5GF368I")
 model = genai.GenerativeModel('gemini-pro')
 
 # Game Data (Simple dictionary)
