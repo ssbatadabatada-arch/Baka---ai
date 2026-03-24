@@ -10,7 +10,7 @@ token = "8629565949:AAH-3Q4K0Hl8LsViFqMt0xbsHeThGnCCUCM"
 bot = telebot.TeleBot(token)
 
 # Gemini AI Key
-genai.configure(api_key="AIzaSyBXds0p_JEDrBImu1nfA_04Nx_8mF-368I")
+genai.configure(api_key="AIzaSyDL53uOGG3trGSaIOx1Hlrup8c17vupsQI")
 model = genai.GenerativeModel('gemini-pro')
 
 # Creator ID
